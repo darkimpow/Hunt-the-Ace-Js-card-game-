@@ -5,16 +5,112 @@ const cardObjectDefenitions = [
     {id:4, imagePath:'/images/card-AceSpades.png'},
 ]
 
+const cardBackImgPath = '/images/card-back-blue.png'
+
+const cardContainerElem = document.querySelector('.card-container')
+
+createCards()
+
+
+function createCards()
+{
+    cardObjectDefinitions.forEach((cardItem)=>{
+        createCard(cardItem)
+    })
+}
+
 function createCard(cardItem){
     //create div elements that make up the card 
     const cardElem = document.createElement('div')
     const cardInnerElem = createElement('div')
     const cardFrontElm = createElement('div')
     const cardBackElm = createElement('div')
-// create front and back image elements for a card
 
-}
+    // create front and back image elements for a card
+const cardFrontImg = createElement('img')
+const CardBackImg = createElement('img')
+
+// add class and id to card element
+addClassToElement(cardElm, 'card')
+addIdToElement(cardElem, cardItem.id)
+
+//add class to inner card element 
+addClassToElement(cardInnerElem, 'card-inner')
+
+//add class to front card element
+addClassToElement(cardFrontElm, 'card-front')
+
+//add class to back card element
+addClassToElement(cardBackElm, 'card-back')
+
+//add src attribute & meaningful value to img element- back of card
+addSrcToImageElem(cardBackImg, cardBackImgPath )
+
+//add src attribute and meaningful value to img element- front of card
+addSrcToImageElem(cardFrontImg, cardItem.imagePath)
+
+//assign class to back image element of back of card
+addClassToElement(cardBackImg, 'card-img')
+
+//assign class to front image element of front of card
+addClassToElement(cardFrontImg, 'card-img')
+
+//add front image element as child to front card elements 
+addChildElement(cardFrontElm, cardFrontImg)
+
+//add back image element as child to back card elements 
+addChildElement(cardBackElm, cardBackImg)
+
+//add front card element as child element to inner card element 
+addChildElement(cardInnerElem, cardFrontElm)
+
+//add back card element as child element to inner card element 
+addChildElement(cardInnerElem, cardBackElm)
+
+//add inner card element as child element to card element
+addChildElement(cardElem, cardInnerElem)
+
+//add card element as child as child element to appropiate grid cell
+addCardToGridCell(cardElem)
+} 
 
 function createElement(elemType){
     return document.createElelment(elemType)
+}
+function addClassToElements(elem, className){
+    elem.classList.add(className)
+}
+function addIdToElement(elem, id){
+    elem.id= id
+}
+function addSrcToImageElem(imgElem,src){
+    imgElem.src = src
+}
+function addChildElement(parentElem, childElem){
+    parentElem.appendChild(childElem)
+}
+function addCardToGridCell(card)
+{
+    const cardPositionClassName = mapCardIdToGridCell(card)
+    const cardPosElem = document.querySelector(cardPositionClassName)
+    addChildElement(cardPosElem, card)
+}
+function mapCardIdToGridCell(card){
+   
+    if(card.id == 1)
+    {
+        return '.card-pos-a'
+    }
+    else if(card.id == 2)
+    {
+        return '.card-pos-b'
+    }
+    else if(card.id == 3)
+    {
+        return '.card-pos-c'
+    }
+    else if(card.id == 4)
+    {
+        return '.card-pos-d'
+    }
 }
