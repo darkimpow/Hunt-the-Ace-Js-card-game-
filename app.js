@@ -16,6 +16,10 @@ const collapsedGridAreaTemplate = '"a a" "a a"'
 
 const cardCollectionCellClass = ".card-pos-a"
 
+const numCards = cardObjectDefinitions.length
+
+let cardPositions= []
+
 
 loadGame()
 
@@ -38,6 +42,8 @@ function startRound(){
     initializeNewRound()
     collectCards()
     flipCards(true)
+    shuffleCards()
+
 
 }
 function initializeNewRound(){
@@ -81,6 +87,86 @@ function flipCards(flipToBack){
         setTimeout(() => {
             flipCard(card,flipToBack)
         },index * 100 )
+    })
+}
+function shuffleCards(){
+    const id = setInterval(shuffle, 12)
+    let shuffleCount = 0
+
+    function shuffle()
+    {
+        randomizeCardPositions()
+
+        if(shuffleCount == 500)
+        {
+            clearInterval(id)
+            dealCards()
+        }
+        else{
+            shuffleCount++;
+        }
+    }
+}
+function randomizeCardPositions()
+{
+    const random1= Math.floor(Math.random() * numCards ) + 1
+    const random2= Math.floor(Math.random() * numCards ) + 1
+
+    const temp = cardPositions[random1- 1]
+
+    cardPositions[random1 - 1] = cardPositions[random2 -1]
+    cardPositions[random2 - 1] = temp
+
+}
+
+function dealCards()
+{
+    addCardsToAppropiateCell()
+    const areasTemplate = returnGridAreasMappedToCardPos()
+
+    transformGridArea(areasTemplate)
+
+}
+function returnGridAreasMappedToCardPos()
+{
+    let firstPart = ""
+    let secondPart = ""
+    let areas = ""
+
+    cards.forEach((card, index)=>{
+        if(cardPositions[index] == 1)
+        {
+            areas = area + "a"
+        }
+        else if(cardPositions[index]== 2)
+        {
+            areas = areas + "b"
+        }
+        else if (cardPositions[index]==3)
+        {
+            areas= areas + "c"
+        }
+        else if (cardPositions[index]==4)
+        {
+            areas = areas + "d"
+        }
+        if (index ==1)
+        {
+            firstPart = areas.substring(0, areas.length - 1)
+            areas = "";
+        }
+        else if (index ==3)
+        {
+            secondPart = areas.substring(0,areas.length - 1)
+        }
+        return `"${firstPart}" "${secondPart}"`
+    })
+}
+
+function addCardsToAppropiateCell()
+{
+    cards.forEach((card)=>{
+    addCardToGridCell(card)
     })
 }
 
@@ -146,7 +232,14 @@ addIdToElement(cardElem, cardItem.id)
 
   //add card element as child element to appropriate grid cell
   addCardToGridCell(cardElem)
+
+  initializeCardPositions(cardElem)
 } 
+
+function initializeCardPositions(card)
+{
+    cardPositions.push(card.id)
+}
 
 function createElement(elemType){
     return document.createElement(elemType)
