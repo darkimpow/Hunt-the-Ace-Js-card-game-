@@ -1,8 +1,8 @@
-const cardObjectDefenitions = [
+const cardObjectDefinitions = [
     {id:1, imagePath:'/images/card-KingHearts.png'},
     {id:2, imagePath:'/images/card-JackClubs.png'},
     {id:3, imagePath:'/images/card-QueenDiamonds.png'},
-    {id:4, imagePath:'/images/card-AceSpades.png'},
+    {id:4, imagePath:'/images/card-AceSpades.png'}
 ]
 
 const cardBackImgPath = '/images/card-back-blue.png'
@@ -20,18 +20,19 @@ function createCards()
 }
 
 function createCard(cardItem){
-    //create div elements that make up the card 
-    const cardElem = document.createElement('div')
-    const cardInnerElem = createElement('div')
-    const cardFrontElm = createElement('div')
-    const cardBackElm = createElement('div')
 
-    // create front and back image elements for a card
-const cardFrontImg = createElement('img')
-const CardBackImg = createElement('img')
+    //create div elements that make up a card
+    const cardElem = createElement('div')
+    const cardInnerElem = createElement('div')
+    const cardFrontElem = createElement('div')
+    const cardBackElem = createElement('div')
+
+    //create front and back image elements for a card
+    const cardFrontImg = createElement('img')
+    const cardBackImg = createElement('img')
 
 // add class and id to card element
-addClassToElement(cardElm, 'card')
+addClassToElement(cardElem, 'card')
 addIdToElement(cardElem, cardItem.id)
 
   //add class to inner card element
@@ -75,9 +76,9 @@ addIdToElement(cardElem, cardItem.id)
 } 
 
 function createElement(elemType){
-    return document.createElelment(elemType)
+    return document.createElement(elemType)
 }
-function addClassToElements(elem, className){
+function addClassToElement(elem, className){
     elem.classList.add(className)
 }
 function addIdToElement(elem, id){
