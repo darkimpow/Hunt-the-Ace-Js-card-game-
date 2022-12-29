@@ -37,6 +37,7 @@ function initializeNewGame(){
 function startRound(){
     initializeNewRound()
     collectCards()
+    flipCards(true)
 
 }
 function initializeNewRound(){
@@ -61,7 +62,27 @@ function addCardsToGridAreaCell(cellPositionClassName)
     })
 
 }
+function flipCard(card, flipToBack)
+{
+    const innerCardElem = card.firstChild
+    if(flipToBack && ! innerCardElem.classList.contains('flip-it'))
+    {
+        innerCardElem.classList.add('flip-it')
+    }
+    else if (innerCardElem.classList.contains('flip-it'))
+    {
+        innerCardElem.classList.remove('flip-it')
+    }
+}
 
+
+function flipCards(flipToBack){
+    cards.forEach((card,index)=>{
+        setTimeout(() => {
+            flipCard(card,flipToBack)
+        },index * 100 )
+    })
+}
 
 
 function createCards()
