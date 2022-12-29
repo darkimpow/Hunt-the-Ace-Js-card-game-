@@ -2,15 +2,38 @@ const cardObjectDefinitions = [
     {id:1, imagePath:'/images/card-KingHearts.png'},
     {id:2, imagePath:'/images/card-JackClubs.png'},
     {id:3, imagePath:'/images/card-QueenDiamonds.png'},
-    {id:4, imagePath:'/images/card-AceSpades.png'}
+    {id:4, imagePath:'/images/AceSpades.png'}
 ]
 
 const cardBackImgPath = '/images/card-back-blue.png'
 
-const cardContainerElem = document.querySelector('.card-container')
+let cards = []
+const playGameButtonElem = document.getElementById('playGame')
 
-createCards()
 
+loadGame()
+
+function loadGame(){
+    createCards()
+
+    cards = document.querySelectorAll('.card')
+
+    playGameButtonElem.addEventListener('click',()=>startGame())
+
+}
+function startGame(){
+    initializeNewGame()
+    startRound()
+}
+function initializeNewGame(){
+
+}
+function startRound(){
+    initializeNewRound()
+}
+function initializeNewRound(){
+
+}
 
 function createCards()
 {
@@ -93,7 +116,9 @@ function addChildElement(parentElem, childElem){
 function addCardToGridCell(card)
 {
     const cardPositionClassName = mapCardIdToGridCell(card)
+
     const cardPosElem = document.querySelector(cardPositionClassName)
+
     addChildElement(cardPosElem, card)
 }
 function mapCardIdToGridCell(card){
